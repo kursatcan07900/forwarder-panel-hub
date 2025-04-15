@@ -1,0 +1,140 @@
+
+import { Link, useLocation } from "react-router-dom";
+import { cn } from "@/lib/utils";
+import {
+  Home,
+  Settings,
+  Users,
+  LogOut,
+  Menu,
+  X
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+
+interface NavItemProps {
+  icon: React.ElementType;
+  href: string;
+  title: string;
+  isActive: boolean;
+  onClick?: () => void;
+}
+
+const NavItem = ({ icon: Icon, href, title, isActive, onClick }: NavItemProps) => {
+  return (
+    <Link
+      to={href}
+      onClick={onClick}
+      className={cn(
+        "flex items-center gap-3 px-3 py-2 rounded-md transition-colors",
+        isActive 
+          ? "bg-sidebar-accent text-sidebar-primary font-medium" 
+          : "text-sidebar-foreground hover:bg-sidebar-accent/50"
+      )}
+    >
+      <Icon className="h-5 w-5" />
+      <span>{title}</span>
+    </Link>
+  );
+};
+
+export function Sidebar() {
+  const location = useLocation();
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+
+  const closeMenu = () => {
+    setIsMobileSidebarOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setIsMobileSidebarOpen(!isMobileSidebarOpen);
+  };
+
+  const navItems = [
+    { icon: Home, href: "/dashboard", title: "Dashboard" },
+    { icon: Users, href: "/referrals", title: "Referrals" },
+    { icon: Settings, href: "/profile", title: "Profile" }
+  ];
+
+  return (
+    <>
+      {/* Mobile menu button */}
+      <Button 
+        variant="ghost" 
+        size="icon" 
+        onClick={toggleMenu}
+        className="fixed top-4 right-4 z-50 md:hidden"
+      >
+        {isMobileSidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+      </Button>
+
+      {/* Sidebar for desktop */}
+      <div className="hidden md:flex flex-col w-64 h-screen bg-sidebar-background border-r border-sidebar-border">
+        <div className="p-4 border-b border-sidebar-border">
+          <h1 className="text-xl font-bold text-primary">Forwarder Panel</h1>
+        </div>
+        
+        <nav className="flex-1 px-2 py-4 space-y-1">
+          {navItems.map((item) => (
+            <NavItem
+              key={item.href}
+              icon={item.icon}
+              href={item.href}
+              title={item.title}
+              isActive={location.pathname === item.href}
+            />
+          ))}
+        </nav>
+        
+        <div className="p-4 border-t border-sidebar-border">
+          <Link 
+            to="/login"
+            className="flex items-center gap-3 px-3 py-2 rounded-md text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
+          >
+            <LogOut className="h-5 w-5" />
+            <span>Logout</span>
+          </Link>
+        </div>
+      </div>
+
+      {/* Mobile sidebar */}
+      {isMobileSidebarOpen && (
+        <div className="fixed inset-0 z-40 md:hidden">
+          <div className="fixed inset-0 bg-black bg-opacity-50" onClick={closeMenu}></div>
+          <div className="fixed top-0 left-0 bottom-0 w-64 bg-sidebar-background border-r border-sidebar-border shadow-lg">
+            <div className="p-4 border-b border-sidebar-border flex justify-between items-center">
+              <h1 className="text-xl font-bold text-primary">Forwarder Panel</h1>
+              <Button variant="ghost" size="icon" onClick={closeMenu}>
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
+            
+            <nav className="flex-1 px-2 py-4 space-y-1">
+              {navItems.map((item) => (
+                <NavItem
+                  key={item.href}
+                  icon={item.icon}
+                  href={item.href}
+                  title={item.title}
+                  isActive={location.pathname === item.href}
+                  onClick={closeMenu}
+                />
+              ))}
+            </nav>
+            
+            <div className="p-4 border-t border-sidebar-border">
+              <Link 
+                to="/login"
+                className="flex items-center gap-3 px-3 py-2 rounded-md text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
+                onClick={closeMenu}
+              >
+                <LogOut className="h-5 w-5" />
+                <span>Logout</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}

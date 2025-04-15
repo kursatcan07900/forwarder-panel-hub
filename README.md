@@ -1,73 +1,36 @@
-# Welcome to your Lovable project
 
-## Project info
+# Forwarder Management Panel
 
-**URL**: https://lovable.dev/projects/0d7d6f85-7d7a-450e-9abb-a9fb6cc9ac19
+A comprehensive dashboard for forwarders to track referrals, earnings, and manage their accounts.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+### Invite Code System
+- Each forwarder has a unique invite code
+- Track users who register with your code
+- Monitor all transactions linked to your referrals
 
-**Use Lovable**
+### Dashboard Analytics
+- View total earnings and transaction counts
+- Breakdown by transaction types (Purchase/Sale/Rental)
+- Recent transaction history
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/0d7d6f85-7d7a-450e-9abb-a9fb6cc9ac19) and start prompting.
+### Referral Tracking
+- List of all users who used your invite code
+- Detailed transaction history for each referral
+- Earnings breakdown per referral
 
-Changes made via Lovable will be committed automatically to this repo.
+### Profile Management
+- Update personal and company information
+- Manage contact details and payment information
+- Change password and security settings
 
-**Use your preferred IDE**
+## Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+1. Clone this repository
+2. Install dependencies with `npm install`
+3. Start the development server with `npm run dev`
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Demo Account
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/0d7d6f85-7d7a-450e-9abb-a9fb6cc9ac19) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+For testing purposes, you can use any email and password in the login form.
