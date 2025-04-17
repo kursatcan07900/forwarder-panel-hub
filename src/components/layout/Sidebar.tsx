@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 interface NavItemProps {
   icon: React.ElementType;
@@ -41,6 +43,7 @@ const NavItem = ({ icon: Icon, href, title, isActive, onClick }: NavItemProps) =
 export function Sidebar() {
   const location = useLocation();
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const { t } = useLanguage();
 
   const closeMenu = () => {
     setIsMobileSidebarOpen(false);
@@ -51,9 +54,9 @@ export function Sidebar() {
   };
 
   const navItems = [
-    { icon: Home, href: "/dashboard", title: "Dashboard" },
-    { icon: Users, href: "/referrals", title: "Referrals" },
-    { icon: Settings, href: "/profile", title: "Profile" }
+    { icon: Home, href: "/dashboard", title: t("dashboard") },
+    { icon: Users, href: "/referrals", title: t("referrals") },
+    { icon: Settings, href: "/profile", title: t("profile") }
   ];
 
   return (
@@ -70,8 +73,9 @@ export function Sidebar() {
 
       {/* Sidebar for desktop */}
       <div className="hidden md:flex flex-col w-64 h-screen bg-sidebar-background border-r border-sidebar-border">
-        <div className="p-4 border-b border-sidebar-border">
-          <h1 className="text-xl font-bold text-primary">Forwarder Panel</h1>
+        <div className="p-4 border-b border-sidebar-border flex justify-between items-center">
+          <h1 className="text-xl font-bold text-primary">{t("forwarderPanel")}</h1>
+          <LanguageSelector />
         </div>
         
         <nav className="flex-1 px-2 py-4 space-y-1">
@@ -92,7 +96,7 @@ export function Sidebar() {
             className="flex items-center gap-3 px-3 py-2 rounded-md text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
           >
             <LogOut className="h-5 w-5" />
-            <span>Logout</span>
+            <span>{t("logout")}</span>
           </Link>
         </div>
       </div>
@@ -103,10 +107,13 @@ export function Sidebar() {
           <div className="fixed inset-0 bg-black bg-opacity-50" onClick={closeMenu}></div>
           <div className="fixed top-0 left-0 bottom-0 w-64 bg-sidebar-background border-r border-sidebar-border shadow-lg">
             <div className="p-4 border-b border-sidebar-border flex justify-between items-center">
-              <h1 className="text-xl font-bold text-primary">Forwarder Panel</h1>
-              <Button variant="ghost" size="icon" onClick={closeMenu}>
-                <X className="h-5 w-5" />
-              </Button>
+              <h1 className="text-xl font-bold text-primary">{t("forwarderPanel")}</h1>
+              <div className="flex items-center">
+                <LanguageSelector />
+                <Button variant="ghost" size="icon" onClick={closeMenu} className="ml-2">
+                  <X className="h-5 w-5" />
+                </Button>
+              </div>
             </div>
             
             <nav className="flex-1 px-2 py-4 space-y-1">
@@ -129,7 +136,7 @@ export function Sidebar() {
                 onClick={closeMenu}
               >
                 <LogOut className="h-5 w-5" />
-                <span>Logout</span>
+                <span>{t("logout")}</span>
               </Link>
             </div>
           </div>
