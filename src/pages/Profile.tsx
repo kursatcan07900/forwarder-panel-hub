@@ -9,6 +9,7 @@ import { mockProfile } from "@/lib/mockData";
 import { Separator } from "@/components/ui/separator";
 import { Copy, Check } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Profile = () => {
   const [profile, setProfile] = useState(mockProfile);
@@ -18,6 +19,7 @@ const Profile = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const handleBasicInfoSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,8 +29,8 @@ const Profile = () => {
     setTimeout(() => {
       setIsSaving(false);
       toast({
-        title: "Profile updated",
-        description: "Your profile information has been updated successfully.",
+        title: t("profileUpdated"),
+        description: t("profileUpdateSuccess"),
       });
     }, 1000);
   };
@@ -44,8 +46,8 @@ const Profile = () => {
       setNewPassword("");
       setConfirmPassword("");
       toast({
-        title: "Password updated",
-        description: "Your password has been changed successfully.",
+        title: t("passwordUpdated"),
+        description: t("passwordUpdateSuccess"),
       });
     }, 1000);
   };
@@ -61,23 +63,23 @@ const Profile = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Profile</h1>
-        <p className="text-muted-foreground">Manage your account settings and preferences</p>
+        <h1 className="text-3xl font-bold tracking-tight">{t("profile")}</h1>
+        <p className="text-muted-foreground">{t("manageAccount")}</p>
       </div>
 
       <Tabs defaultValue="basic" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="basic">Basic Information</TabsTrigger>
-          <TabsTrigger value="security">Security</TabsTrigger>
+          <TabsTrigger value="basic">{t("basicInformation")}</TabsTrigger>
+          <TabsTrigger value="security">{t("security")}</TabsTrigger>
         </TabsList>
         
         <TabsContent value="basic" className="space-y-4">
           {/* Invite code card */}
           <Card>
             <CardHeader>
-              <CardTitle>Your Invite Code</CardTitle>
+              <CardTitle>{t("yourInviteCode")}</CardTitle>
               <CardDescription>
-                Share this code with others to earn from their transactions
+                {t("shareWithClients")}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -101,15 +103,15 @@ const Profile = () => {
           <form onSubmit={handleBasicInfoSubmit}>
             <Card>
               <CardHeader>
-                <CardTitle>Basic Information</CardTitle>
+                <CardTitle>{t("basicInformation")}</CardTitle>
                 <CardDescription>
-                  Update your personal and contact information
+                  {t("updatePersonalInfo")}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="firstName">First Name</Label>
+                    <Label htmlFor="firstName">{t("firstName")}</Label>
                     <Input
                       id="firstName"
                       value={profile.firstName}
@@ -117,7 +119,7 @@ const Profile = () => {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="lastName">Last Name</Label>
+                    <Label htmlFor="lastName">{t("lastName")}</Label>
                     <Input
                       id="lastName"
                       value={profile.lastName}
@@ -127,7 +129,7 @@ const Profile = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="company">Company Name (Optional)</Label>
+                  <Label htmlFor="company">{t("companyName")}</Label>
                   <Input
                     id="company"
                     value={profile.companyName || ""}
@@ -138,7 +140,7 @@ const Profile = () => {
                 <Separator />
 
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
+                  <Label htmlFor="email">{t("emailAddress")}</Label>
                   <Input
                     id="email"
                     type="email"
@@ -148,7 +150,7 @@ const Profile = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="phone">Phone Number</Label>
+                  <Label htmlFor="phone">{t("phoneNumber")}</Label>
                   <Input
                     id="phone"
                     value={profile.phone}
@@ -157,7 +159,7 @@ const Profile = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="iban">IBAN (For payment deposits)</Label>
+                  <Label htmlFor="iban">{t("iban")}</Label>
                   <Input
                     id="iban"
                     value={profile.iban}
@@ -167,7 +169,7 @@ const Profile = () => {
               </CardContent>
               <CardFooter>
                 <Button type="submit" disabled={isSaving}>
-                  {isSaving ? "Saving..." : "Save Changes"}
+                  {isSaving ? t("saving") : t("saveChanges")}
                 </Button>
               </CardFooter>
             </Card>
@@ -178,14 +180,14 @@ const Profile = () => {
           <form onSubmit={handlePasswordSubmit}>
             <Card>
               <CardHeader>
-                <CardTitle>Change Password</CardTitle>
+                <CardTitle>{t("changePassword")}</CardTitle>
                 <CardDescription>
-                  Update your password to keep your account secure
+                  {t("changePasswordDesc")}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="currentPassword">Current Password</Label>
+                  <Label htmlFor="currentPassword">{t("currentPassword")}</Label>
                   <Input
                     id="currentPassword"
                     type="password"
@@ -194,7 +196,7 @@ const Profile = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="newPassword">New Password</Label>
+                  <Label htmlFor="newPassword">{t("newPassword")}</Label>
                   <Input
                     id="newPassword"
                     type="password"
@@ -203,7 +205,7 @@ const Profile = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="confirmPassword">Confirm New Password</Label>
+                  <Label htmlFor="confirmPassword">{t("confirmPassword")}</Label>
                   <Input
                     id="confirmPassword"
                     type="password"
@@ -214,7 +216,7 @@ const Profile = () => {
               </CardContent>
               <CardFooter>
                 <Button type="submit" disabled={isSaving}>
-                  {isSaving ? "Changing Password..." : "Change Password"}
+                  {isSaving ? t("changingPassword") : t("changePassword")}
                 </Button>
               </CardFooter>
             </Card>

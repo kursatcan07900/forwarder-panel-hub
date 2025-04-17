@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { mockReferrals } from "@/lib/mockData";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Search } from "lucide-react";
+import { Search, ChevronDown, ChevronUp } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
   Collapsible,
@@ -12,11 +12,12 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Referrals = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [openCollapsible, setOpenCollapsible] = useState<string | null>(null);
+  const { t } = useLanguage();
 
   // Filter referrals based on search term
   const filteredReferrals = mockReferrals.filter(
@@ -33,11 +34,11 @@ const Referrals = () => {
   const getTransactionTypeLabel = (type: string) => {
     switch (type) {
       case 'purchase':
-        return 'Purchase';
+        return t("purchase");
       case 'sale':
-        return 'Sale';
+        return t("sale");
       case 'rental':
-        return 'Rental';
+        return t("rental");
       default:
         return type;
     }
@@ -59,22 +60,22 @@ const Referrals = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Referrals</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t("referrals")}</h1>
         <p className="text-muted-foreground">
-          Users and companies who have used your invite code
+          {t("usingYourInviteCode")}
         </p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Referral List</CardTitle>
+          <CardTitle>{t("referrals")}</CardTitle>
           <CardDescription>
-            Details of all users who registered with your invite code
+            {t("usingYourInviteCode")}
           </CardDescription>
           <div className="flex items-center border rounded-md px-3 mt-2">
             <Search className="h-4 w-4 text-muted-foreground mr-2 flex-shrink-0" />
             <Input
-              placeholder="Search by name or company..."
+              placeholder={`${t("search")}...`}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 px-0"
@@ -85,10 +86,10 @@ const Referrals = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[300px]">User/Company</TableHead>
-                <TableHead>Transaction Types</TableHead>
-                <TableHead>Total Earnings</TableHead>
-                <TableHead>Details</TableHead>
+                <TableHead className="w-[300px]">{t("userCompany")}</TableHead>
+                <TableHead>{t("transactionTypes")}</TableHead>
+                <TableHead>{t("totalEarnings")}</TableHead>
+                <TableHead>{t("details")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -117,7 +118,7 @@ const Referrals = () => {
                             variant="outline" 
                             className="bg-primary/10 text-primary border-primary/20"
                           >
-                            {referral.transactionCount.purchase} Purchase
+                            {referral.transactionCount.purchase} {t("purchase")}
                           </Badge>
                         )}
                         {referral.transactionCount.sale > 0 && (
@@ -125,7 +126,7 @@ const Referrals = () => {
                             variant="outline" 
                             className="bg-secondary/10 text-secondary border-secondary/20"
                           >
-                            {referral.transactionCount.sale} Sale
+                            {referral.transactionCount.sale} {t("sale")}
                           </Badge>
                         )}
                         {referral.transactionCount.rental > 0 && (
@@ -133,7 +134,7 @@ const Referrals = () => {
                             variant="outline" 
                             className="bg-accent-foreground/10 text-accent-foreground border-accent-foreground/20"
                           >
-                            {referral.transactionCount.rental} Rental
+                            {referral.transactionCount.rental} {t("rental")}
                           </Badge>
                         )}
                       </div>
@@ -153,7 +154,7 @@ const Referrals = () => {
                           ) : (
                             <ChevronDown className="h-4 w-4 mr-1" />
                           )}
-                          {openCollapsible === referral.id ? 'Hide' : 'Show'} Details
+                          {openCollapsible === referral.id ? t("hide") : t("show")} {t("details")}
                         </Button>
                       </CollapsibleTrigger>
                     </TableCell>
@@ -162,13 +163,13 @@ const Referrals = () => {
                     <TableRow className="bg-muted/50 hover:bg-muted/50">
                       <TableCell colSpan={4} className="p-0">
                         <div className="px-4 py-3">
-                          <h4 className="font-medium mb-2">Transaction History</h4>
+                          <h4 className="font-medium mb-2">{t("transactionHistory")}</h4>
                           <Table>
                             <TableHeader>
                               <TableRow>
-                                <TableHead>Date</TableHead>
-                                <TableHead>Type</TableHead>
-                                <TableHead>Earnings</TableHead>
+                                <TableHead>{t("date")}</TableHead>
+                                <TableHead>{t("type")}</TableHead>
+                                <TableHead>{t("earnings")}</TableHead>
                               </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -202,7 +203,7 @@ const Referrals = () => {
               {filteredReferrals.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={4} className="h-24 text-center">
-                    No matching referrals found.
+                    {t("noMatchingReferrals")}
                   </TableCell>
                 </TableRow>
               )}
