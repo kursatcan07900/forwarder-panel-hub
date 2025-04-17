@@ -12,7 +12,15 @@ import Referrals from "./pages/Referrals";
 import NotFound from "./pages/NotFound";
 import { LanguageProvider } from "./contexts/LanguageContext";
 
-const queryClient = new QueryClient();
+// Create a new query client instance
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

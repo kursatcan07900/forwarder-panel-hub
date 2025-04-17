@@ -14,7 +14,7 @@ export function Layout({ children }: LayoutProps) {
   if (isLoginPage) {
     return (
       <div className="h-screen bg-background">
-        <div className="absolute top-4 right-4 z-10">
+        <div className="fixed top-4 right-4 z-50">
           <LanguageSelector />
         </div>
         {children}
@@ -26,7 +26,7 @@ export function Layout({ children }: LayoutProps) {
     <div className="flex h-screen overflow-hidden bg-background">
       <Sidebar />
       <main className="flex-1 overflow-y-auto p-6 md:p-8">
-        <div className="md:hidden absolute top-4 left-4 z-10">
+        <div className="fixed top-4 right-4 z-50 md:hidden">
           <LanguageSelector />
         </div>
         {children}
