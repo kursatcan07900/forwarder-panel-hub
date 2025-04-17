@@ -1,8 +1,7 @@
-
 import React, { createContext, useState, useContext, ReactNode } from "react";
 
 // Define available languages
-export type Language = "tr" | "en" | "ar" | "ru" | "zh";
+export type Language = "tr" | "en" | "ar" | "ru" | "zh" | "he" | "es";
 
 // Define translations for each supported language
 export const translations = {
@@ -155,6 +154,66 @@ export const translations = {
     type: "类型",
     earnings: "收入",
     usingYourInviteCode: "使用您的邀请码"
+  },
+  he: {
+    dashboard: "לוח מחוונים",
+    referrals: "הפניות",
+    profile: "פרופיל",
+    logout: "התנתק",
+    forwarderPanel: "לוח בקרה למשלח",
+    welcomeDashboard: "ברוכים הבאים ללוח הבקרה שלכם",
+    totalEarnings: "סך הכנסות",
+    fromAllTransactions: "מכל העסקאות",
+    totalTransactions: "סך כל העסקאות",
+    allProcessedTransactions: "כל העסקאות המעובדות",
+    yourInviteCode: "קוד ההזמנה שלך",
+    shareWithClients: "שתף עם לקוחות פוטנציאליים",
+    transactionTypes: "סוגי עסקאות",
+    breakdownOfTypes: "פירוט סוגי העסקאות",
+    earningsPerType: "הכנסות לפי סוג",
+    earningsBreakdown: "פירוט הכנסות לפי סוג עסקה",
+    purchase: "רכישה",
+    sale: "מכירה",
+    rental: "השכרה",
+    transactions: "עסקאות",
+    transaction: "עסקה",
+    recentTransactions: "עסקאות אחרונות",
+    latestTransactions: "5 העסקאות האחרונות שלך",
+    date: "תאריך",
+    userCompany: "משתמש/חברה",
+    type: "סוג",
+    earnings: "הכנסות",
+    usingYourInviteCode: "באמצעות קוד ההזמנה שלך"
+  },
+  es: {
+    dashboard: "Panel",
+    referrals: "Referencias",
+    profile: "Perfil",
+    logout: "Cerrar sesión",
+    forwarderPanel: "Panel de Expedición",
+    welcomeDashboard: "Bienvenido a su panel de expedición",
+    totalEarnings: "Ingresos Totales",
+    fromAllTransactions: "De todas las transacciones",
+    totalTransactions: "Total de Transacciones",
+    allProcessedTransactions: "Todas las transacciones procesadas",
+    yourInviteCode: "Su Código de Invitación",
+    shareWithClients: "Compartir con clientes potenciales",
+    transactionTypes: "Tipos de Transacciones",
+    breakdownOfTypes: "Desglose de tipos de transacciones",
+    earningsPerType: "Ingresos por Tipo",
+    earningsBreakdown: "Desglose de ingresos por tipo de transacción",
+    purchase: "Compra",
+    sale: "Venta",
+    rental: "Alquiler",
+    transactions: "transacciones",
+    transaction: "transacción",
+    recentTransactions: "Transacciones Recientes",
+    latestTransactions: "Sus últimas 5 transacciones",
+    date: "Fecha",
+    userCompany: "Usuario/Empresa",
+    type: "Tipo",
+    earnings: "Ingresos",
+    usingYourInviteCode: "Usando su código de invitación"
   }
 };
 

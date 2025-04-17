@@ -16,7 +16,9 @@ const languages = [
   { code: "en", name: "English" },
   { code: "ar", name: "العربية" },
   { code: "ru", name: "Русский" },
-  { code: "zh", name: "中文" }
+  { code: "zh", name: "中文" },
+  { code: "he", name: "עברית" },
+  { code: "es", name: "Español" }
 ];
 
 export function LanguageSelector() {
