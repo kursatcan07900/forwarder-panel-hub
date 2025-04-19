@@ -33,8 +33,8 @@ const Profile = () => {
         localStorage.removeItem('auth_token');
         setToken(null);
         toast({
-          title: t("authError"),
-          description: t("pleaseLoginAgain"),
+          title: "Yetkilendirme Hatası",
+          description: "Lütfen tekrar giriş yapın.",
           variant: "destructive",
         });
       }
@@ -51,8 +51,8 @@ const Profile = () => {
     
     if (!tokenValid) {
       toast({
-        title: t("authError"),
-        description: t("pleaseLoginAgain"),
+        title: "Yetkilendirme Hatası",
+        description: "Lütfen tekrar giriş yapın.",
         variant: "destructive",
       });
       return;
@@ -79,8 +79,8 @@ const Profile = () => {
     
     if (!tokenValid) {
       toast({
-        title: t("authError"),
-        description: t("pleaseLoginAgain"),
+        title: "Yetkilendirme Hatası",
+        description: "Lütfen tekrar giriş yapın.",
         variant: "destructive",
       });
       return;
@@ -137,9 +137,9 @@ const Profile = () => {
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-destructive">
               <AlertCircle size={18} />
-              <p className="font-semibold">{t("authError")}</p>
+              <p className="font-semibold">Yetkilendirme Hatası</p>
             </div>
-            <p className="text-sm mt-1">{t("pleaseLoginAgain")}</p>
+            <p className="text-sm mt-1">Lütfen tekrar giriş yapın.</p>
           </CardContent>
         </Card>
       )}
