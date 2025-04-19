@@ -17,6 +17,7 @@ interface PasswordFormProps {
   onConfirmPasswordChange: (value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
   isSaving: boolean;
+  onSendVerification: () => void;
 }
 
 export const PasswordForm = ({
@@ -28,15 +29,21 @@ export const PasswordForm = ({
   onNewPasswordChange,
   onConfirmPasswordChange,
   onSubmit,
-  isSaving
+  isSaving,
+  onSendVerification
 }: PasswordFormProps) => {
   const { t } = useLanguage();
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSendVerification();
+  };
+
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit}>
       <Card>
         <CardHeader>
           <CardTitle>{t("changePassword")}</CardTitle>
@@ -113,7 +120,7 @@ export const PasswordForm = ({
         </CardContent>
         <CardFooter>
           <Button type="submit" disabled={isSaving}>
-            {isSaving ? t("changingPassword") : t("changePassword")}
+            {isSaving ? "İşleniyor..." : "Şifre Değiştir"}
           </Button>
         </CardFooter>
       </Card>
