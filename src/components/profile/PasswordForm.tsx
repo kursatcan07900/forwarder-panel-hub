@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 interface PasswordFormProps {
   currentPassword: string;
@@ -29,6 +31,9 @@ export const PasswordForm = ({
   isSaving
 }: PasswordFormProps) => {
   const { t } = useLanguage();
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
     <form onSubmit={onSubmit}>
@@ -46,35 +51,64 @@ export const PasswordForm = ({
           
           <div className="space-y-2">
             <Label htmlFor="currentPassword">{t("currentPassword")}</Label>
-            <Input
-              id="currentPassword"
-              type="password"
-              value={currentPassword}
-              onChange={(e) => onCurrentPasswordChange(e.target.value)}
-              required
-            />
+            <div className="relative">
+              <Input
+                id="currentPassword"
+                type={showCurrentPassword ? "text" : "password"}
+                value={currentPassword}
+                onChange={(e) => onCurrentPasswordChange(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+              >
+                {showCurrentPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
+            </div>
             <p className="text-xs text-muted-foreground">Demo için şifre: "123456"</p>
           </div>
+          
           <div className="space-y-2">
             <Label htmlFor="newPassword">{t("newPassword")}</Label>
-            <Input
-              id="newPassword"
-              type="password"
-              value={newPassword}
-              onChange={(e) => onNewPasswordChange(e.target.value)}
-              required
-            />
+            <div className="relative">
+              <Input
+                id="newPassword"
+                type={showNewPassword ? "text" : "password"}
+                value={newPassword}
+                onChange={(e) => onNewPasswordChange(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                onClick={() => setShowNewPassword(!showNewPassword)}
+              >
+                {showNewPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
+            </div>
             <p className="text-xs text-muted-foreground">En az 8 karakter olmalıdır</p>
           </div>
+          
           <div className="space-y-2">
             <Label htmlFor="confirmPassword">{t("confirmPassword")}</Label>
-            <Input
-              id="confirmPassword"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => onConfirmPasswordChange(e.target.value)}
-              required
-            />
+            <div className="relative">
+              <Input
+                id="confirmPassword"
+                type={showConfirmPassword ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => onConfirmPasswordChange(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
+            </div>
           </div>
         </CardContent>
         <CardFooter>

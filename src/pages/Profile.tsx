@@ -24,6 +24,10 @@ const Profile = () => {
   const { toast } = useToast();
   const { t } = useLanguage();
 
+  // For demo purposes, we store the "current" password
+  // In a real app, this would be securely stored in the database
+  const [storedPassword, setStoredPassword] = useState("123456");
+
   useEffect(() => {
     if (token) {
       const isValid = verifyToken(token);
@@ -101,7 +105,8 @@ const Profile = () => {
       return;
     }
     
-    if (currentPassword !== "123456") {
+    // Compare with the stored password rather than hardcoding
+    if (currentPassword !== storedPassword) {
       setPasswordError("Mevcut şifre yanlış");
       return;
     }
@@ -109,6 +114,9 @@ const Profile = () => {
     setIsSaving(true);
     
     setTimeout(() => {
+      // Update the stored password to the new one
+      setStoredPassword(newPassword);
+      
       setIsSaving(false);
       setCurrentPassword("");
       setNewPassword("");
