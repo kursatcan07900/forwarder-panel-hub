@@ -44,18 +44,20 @@ export const OTPVerification = ({
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <InputOTP 
-          value={otp} 
-          onChange={setOtp} 
-          maxLength={6}
-          render={({ slots }) => (
-            <InputOTPGroup>
-              {slots.map((slot, index) => (
-                <InputOTPSlot key={index} {...slot} index={index} />
-              ))}
-            </InputOTPGroup>
-          )}
-        />
+        <div className="flex justify-center">
+          <InputOTP
+            value={otp}
+            onChange={setOtp}
+            maxLength={6}
+            render={({ slots }) => (
+              <InputOTPGroup>
+                {slots && Array.isArray(slots) && slots.map((slot, index) => (
+                  <InputOTPSlot key={index} {...slot} index={index} />
+                ))}
+              </InputOTPGroup>
+            )}
+          />
+        </div>
         <p className="text-xs text-muted-foreground text-center">
           Doğrulama kodu 5 dakika geçerlidir
         </p>
