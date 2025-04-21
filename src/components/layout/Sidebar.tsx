@@ -56,7 +56,8 @@ export function Sidebar() {
   const navItems = [
     { icon: Home, href: "/dashboard", title: t("dashboard") },
     { icon: Users, href: "/referrals", title: t("referrals") },
-    { icon: Settings, href: "/profile", title: t("profile") }
+    { icon: Settings, href: "/profile", title: t("profile") },
+    { icon: Settings, href: "/admin", title: t("superAdmin") } // Süper Admin eklendi
   ];
 
   return (
