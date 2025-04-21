@@ -57,7 +57,7 @@ export function Sidebar() {
     { icon: Home, href: "/dashboard", title: t("dashboard") },
     { icon: Users, href: "/referrals", title: t("referrals") },
     { icon: Settings, href: "/profile", title: t("profile") },
-    { icon: Settings, href: "/admin", title: t("superAdmin") } // Süper Admin eklendi
+    { icon: Settings, href: "/admin", title: "Süper Admin" } // Changed to hardcoded string instead of using t()
   ];
 
   return (
