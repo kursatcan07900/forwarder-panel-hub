@@ -34,18 +34,19 @@ const Login = () => {
     // Check if already logged in
     const token = localStorage.getItem('auth_token');
     if (token) {
-      // Token geçerliliği gerçek bir uygulamada sunucu tarafında doğrulanmalıdır
-      // Basit düzen: Rolü kontrol et
       try {
         const payloadBase64 = token.split('.')[1];
         const payload = JSON.parse(atob(payloadBase64));
-        if (payload?.role === "superadmin") {
+        
+        if (payload && payload.role === "superadmin") {
           navigate("/admin");
-        } else {
+        } else if (payload && payload.role === "user") {
           navigate("/dashboard");
         }
-      } catch {
-        // hata durumda bir şey yapma
+      } catch (error) {
+        // Token parsing error, clear token
+        localStorage.removeItem('auth_token');
+        console.error("Invalid token:", error);
       }
     }
   }, [navigate]);
@@ -70,11 +71,8 @@ const Login = () => {
     // Demo giriş kontrolü
     setTimeout(() => {
       setIsLoading(false);
-      if (
-        loginType === "user" &&
-        email === "demo@example.com" &&
-        password === "123456"
-      ) {
+      
+      if (loginType === "user" && email === "demo@example.com" && password === "123456") {
         // Kullanıcı tipi için giriş başarılı
         const token = generateToken("user-123", "user");
         localStorage.setItem('auth_token', token);
@@ -83,11 +81,7 @@ const Login = () => {
           description: "Hoş geldiniz!",
         });
         navigate("/dashboard");
-      } else if (
-        loginType === "admin" &&
-        email === "admin@example.com" &&
-        password === "admin123"
-      ) {
+      } else if (loginType === "admin" && email === "admin@example.com" && password === "admin123") {
         // Süper admin girişi başarılı
         const token = generateToken("admin-1", "superadmin");
         localStorage.setItem('auth_token', token);

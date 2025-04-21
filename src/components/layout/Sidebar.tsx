@@ -7,10 +7,11 @@ import {
   Users,
   LogOut,
   Menu,
-  X
+  X,
+  ShieldAlert
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageSelector } from "@/components/LanguageSelector";
 
@@ -43,7 +44,25 @@ const NavItem = ({ icon: Icon, href, title, isActive, onClick }: NavItemProps) =
 export function Sidebar() {
   const location = useLocation();
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [userRole, setUserRole] = useState<string | null>(null);
   const { t } = useLanguage();
+
+  useEffect(() => {
+    // Check user role from token
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      try {
+        const payloadBase64 = token.split('.')[1];
+        const payload = JSON.parse(atob(payloadBase64));
+        if (payload && payload.role) {
+          setUserRole(payload.role);
+        }
+      } catch (error) {
+        console.error("Error parsing token:", error);
+        setUserRole(null);
+      }
+    }
+  }, []);
 
   const closeMenu = () => {
     setIsMobileSidebarOpen(false);
@@ -53,12 +72,22 @@ export function Sidebar() {
     setIsMobileSidebarOpen(!isMobileSidebarOpen);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('auth_token');
+    window.location.href = '/login';
+  };
+
+  // Define navigation items - only show admin link if user has superadmin role
   const navItems = [
     { icon: Home, href: "/dashboard", title: t("dashboard") },
     { icon: Users, href: "/referrals", title: t("referrals") },
     { icon: Settings, href: "/profile", title: t("profile") },
-    { icon: Settings, href: "/admin", title: "Süper Admin" } // Changed to hardcoded string instead of using t()
   ];
+  
+  // Add super admin link only for superadmin role
+  if (userRole === "superadmin") {
+    navItems.push({ icon: ShieldAlert, href: "/admin", title: "Süper Admin" });
+  }
 
   return (
     <>
@@ -92,13 +121,13 @@ export function Sidebar() {
         </nav>
         
         <div className="p-4 border-t border-sidebar-border">
-          <Link 
-            to="/login"
-            className="flex items-center gap-3 px-3 py-2 rounded-md text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
+          <button 
+            onClick={handleLogout}
+            className="flex w-full items-center gap-3 px-3 py-2 rounded-md text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
           >
             <LogOut className="h-5 w-5" />
             <span>{t("logout")}</span>
-          </Link>
+          </button>
         </div>
       </div>
 
@@ -131,14 +160,13 @@ export function Sidebar() {
             </nav>
             
             <div className="p-4 border-t border-sidebar-border">
-              <Link 
-                to="/login"
-                className="flex items-center gap-3 px-3 py-2 rounded-md text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
-                onClick={closeMenu}
+              <button 
+                onClick={handleLogout}
+                className="flex w-full items-center gap-3 px-3 py-2 rounded-md text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
               >
                 <LogOut className="h-5 w-5" />
                 <span>{t("logout")}</span>
-              </Link>
+              </button>
             </div>
           </div>
         </div>
