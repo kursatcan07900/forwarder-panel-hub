@@ -82,12 +82,12 @@ const Login = () => {
         });
         navigate("/dashboard");
       } else if (loginType === "admin" && email === "admin@example.com" && password === "admin123") {
-        // Süper admin girişi başarılı
+        // Admin-in-Chief girişi başarılı
         const token = generateToken("admin-1", "superadmin");
         localStorage.setItem('auth_token', token);
         toast({
-          title: "Süper Admin Girişi Başarılı",
-          description: "Hoş geldiniz Süper Admin!",
+          title: "Admin-in-Chief Girişi Başarılı",
+          description: "Hoş geldiniz Admin-in-Chief!",
         });
         navigate("/admin");
       } else {
@@ -138,7 +138,7 @@ const Login = () => {
                   onClick={() => setLoginType("admin")}
                   className="flex-1"
                 >
-                  Süper Admin Girişi
+                  Admin-in-Chief Girişi
                 </Button>
               </div>
 
@@ -182,7 +182,7 @@ const Login = () => {
                   <span className="font-semibold">Kullanıcı:</span> demo@example.com / 123456
                 </div>
                 <div>
-                  <span className="font-semibold">Süper Admin:</span> admin@example.com / admin123
+                  <span className="font-semibold">Admin-in-Chief:</span> admin@example.com / admin123
                 </div>
               </div>
             </CardContent>

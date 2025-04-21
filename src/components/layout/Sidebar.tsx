@@ -84,9 +84,9 @@ export function Sidebar() {
     { icon: Settings, href: "/profile", title: t("profile") },
   ];
   
-  // Add super admin link only for superadmin role
+  // Add admin-in-chief link only for superadmin role
   if (userRole === "superadmin") {
-    navItems.push({ icon: ShieldAlert, href: "/admin", title: "Süper Admin" });
+    navItems.push({ icon: ShieldAlert, href: "/admin", title: "Admin-in-Chief" });
   }
 
   return (
